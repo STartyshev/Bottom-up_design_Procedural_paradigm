@@ -1,4 +1,6 @@
 from console_ui import *
+from correct_initialization import ui_array_init, random_array_init
+from math_functions import number_of_common_numbers
 
 
 # Задача №1
@@ -6,6 +8,11 @@ def ui_number_of_common_numbers():
     """
     Функция реализующая пользовательский интерфейс в командной строке для поиска кол-ва общих чисел в двух массивах.
     """
+    # Два массива в которых будет осуществляться поиск общих чисел
+    first_array = []
+    second_array = []
+    # Количество общих чисел двух массивов
+    num_of_common_numbers = None
     while True:
         system('CLS')
         main_menu_item = main_menu_for_tasks(
@@ -15,19 +22,79 @@ def ui_number_of_common_numbers():
         match main_menu_item:
             # Условие задачи
             case 1:
-                pass
+                system('CLS')
+                print(
+                    'Входные данные: два массива с числами. Требуется проверить сколько у массивов общих чисел. '
+                    'Также число будет считаться общим если оно входит в один массив, а в другом массиве находится '
+                    'его перевернутая версия.'
+                )
+                system('PAUSE')
 
             # Ввод исходных данных
             case 2:
-                pass
+                first_array = []
+                second_array = []
+                system('CLS')
+                while True:
+                    initialization_item = ui_menu(
+                        'Способ инициализации.\n'
+                        '1. Вручную.\n'
+                        '2. Автоматически.'
+                    )
+                    match initialization_item:
+                        # Инициализация массивов вручную
+                        case 1:
+                            system('CLS')
+                            print('Инициализация первого массива: ')
+                            ui_array_init(first_array)
+                            print('Инициализация второго массива: ')
+                            ui_array_init(second_array)
+                            break
+
+                        # Инициализация массивов случайным образом
+                        case 2:
+                            system('CLS')
+                            print('Инициализация первого массива: ')
+                            random_array_init(first_array)
+                            print('Инициализация второго массива: ')
+                            random_array_init(second_array)
+                            break
+
+                        case _:
+                            print_error_message('В меню всего 2 пункта. Попробуйте еще раз.')
+
+                print('Инициализация массивов прошла успешно.')
+                system('PAUSE')
 
             # Выполнение алгоритма
             case 3:
-                pass
+                system('CLS')
+                if len(first_array) < 1 or len(second_array) < 1:
+                    print_error_message(
+                        'Невозможно выполнить алгоритм, так как один или оба массива пустые. '
+                        'Заполните массивы и попробуйте еще раз.'
+                    )
+                else:
+                    num_of_common_numbers = number_of_common_numbers(first_array, second_array)
+                    print('Алгоритм успешно выполнен!')
+                    system('PAUSE')
 
             # Вывод результатов работы алгоритма
             case 4:
-                pass
+                system('CLS')
+                if num_of_common_numbers is not None:
+                    print(
+                        f"Результат работы алгоритма.\n"
+                        f"Первый массива: {' '.join(map(str, first_array))}\n"
+                        f"Второй массив: {' '.join(map(str, second_array))}\n"
+                        f"Количество общих чисел в обоих массивах: {num_of_common_numbers}"
+                    )
+                    system('PAUSE')
+                else:
+                    print_error_message(
+                        'Невозможно вывести результат работы алгоритма, так как алгоритм не был выполнен. '
+                        'Запустите работу алгоритма и попробуйте еще раз.'
+                    )
 
             # Выход в главное меню
             case 5:
