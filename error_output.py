@@ -1,5 +1,12 @@
-def print_error_message():
+from os import system
+
+
+def print_error_message(message):
     """
-    Функция реализующая форматированный вывод сообщения об ошибке в консоль.
+    Функция реализующая форматированный вывод сообщения об ошибке в командную строку.
+    :param message: Текст сообщения об ошибке.
     """
-    pass
+    system('CLS')
+    print(message)
+    system('PAUSE')
+    system('CLS')
